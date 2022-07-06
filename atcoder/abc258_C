@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+
+    // 入力
+    int N, Q;
+    cin >> N >> Q;
+    //  vector<string> NN(N);
+
+    // cout << NN.at(0) << endl;
+    string NN;
+    // getline(cin, NN);
+    cin >> NN;
+    // cout << NN << endl;
+    // for (int i = 0; i < N; i++) {
+    //     NN.at(i) = NNN[i];
+
+    // }  
+    int t, x;
+     vector<int> TT(Q);
+     vector<int> XX(Q);
+     long long RR=0;
+    for(int i = 0; i < Q; i++){
+        cin >> TT.at(i) >> XX.at(i);
+    }
+    
+    //方針：配列の順番を入れ替えるたびに配列をrotateで操作すると計算時間が足りないため、配列の操作数をカウントして文字列を表示するときにカウントだけ添字をずらす。
+    for(int i = 0; i < Q; i++){
+         if(TT.at(i) == 2){
+            if(RR == 0){
+                cout << NN[XX.at(i)-1] << endl;
+            }else{
+                cout << NN[N-RR+XX.at(i)-1] << endl;
+            }
+         }else{
+            // rotate(NN.rbegin(),NN.rbegin()+XX.at(i),NN.rend());
+            RR= RR + XX.at(i);
+            if(RR >= N){
+                RR = RR -N;
+            }
+        }
+    }
+
+
+    // for(int i = 0; i < Q; i++){
+    //     cin >> t >> x;
+
+    //      if(t == 1){
+    //         rotate(NN.rbegin(),NN.rbegin()+x,NN.rend());
+    //      }else{
+    //     cout << NN[x-1] << endl;
+    //     }
+    // }
+}
