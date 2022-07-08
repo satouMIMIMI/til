@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+int main() {
+  int n;
+  cin>>n;
+  ll ans=0;
+  vector<vector<ll>> a(n,vector<ll>(n));
+  for(int i=0;i<n;i++){
+    for(int j=0;j<n;j++){
+      char c;
+      cin>>c;
+      //charをintやlong long型にキャストすると、文字に対応した10進数の数字になる。
+      //言語仕様でcharnの文字0-9に対応する10進数の数字は連続である。
+      a[i][j]=c-'0';
+    }
+  }
+  vector<int> p={1,1,1,0,0,-1,-1,-1},q={1,0,-1,1,-1,1,0,-1};
+  for(int i=0;i<n;i++){
+    for(int j=0;j<n;j++){
+      for(int k=0;k<8;k++){
+        ll now=0;
+        ll x=i,y=j;
+        for(int l=0;l<n;l++){
+          now*=10;
+          now+=a[x][y];
+          x+=p[k];
+          y+=q[k];
+          //C++はmodの結果が負の数になることがある。
+          //負の数　%　正の数　 の余剰は負である。余剰を負から正に変換する。
+          x = (x%n+n)%n;
+          y = (y%n+n)%n;
+        }
+        ans=max(ans,now);
+      }
+    }
+  }
+  cout<<ans<<endl;
+}
