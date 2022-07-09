@@ -6,3 +6,15 @@ ABC258B
 
 C++言語仕様（Language specifications）
   % (mod):余剰の計算結果は負の数になることがある。必ず正の数になると思い込んでいた。
+
+コンパイルエラーが出ない文法ミス
+・foreach文
+	for(int &x:AA){
+      cin >> AA[x]; //AAに入力を格納できない。　
+      cout << x+" ";
+	}
+  //正しい書き方。
+      vector<int> AA(N);
+	for(int &x:AA){
+      cin >> x;
+	}
