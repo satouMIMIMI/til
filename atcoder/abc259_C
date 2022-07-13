@@ -1,29 +1,31 @@
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
-
 //ランレングス圧縮 【連長圧縮】 RLE / Run Length Encoding
-//↓  &vecは参照渡し
-void rle(string s, vector<pair<char, int>> &vec){
-  //i-1番目の文字がi番目の文字と異なるなら、vecに連続した文字数とpairで格納することを文字列の最後の1つ手前まで繰り返す。
+  //ループでi-1番目の文字がi番目の文字と異なるなら、vecに連続した文字数とpairで格納することを文字列の最後の1つ手前まで繰り返す。
   //for文の最後のループで、最後の文字と最後の１つ手前の文字を比較していて、同じ文字ならfor文抜けた後のvec.push_backでまとめて格納する。
-  //最後の文字と最後の１つ手前の文字が異なるなら、最後の１つ手前の文字までvecに格納してmoji_cntを++して、
+  //最後の文字と最後の１つ手前の文字が異なるなら、最後の１つ手前の文字までvecに格納してcntを++して、
   //for文抜けた後vec.push_backで最後の文字をvecに格納する。
-  //int moji_cnt=1;で初期化してfor文を開始することと moji_cnt++;の処理位置が、文字数カウントのために上手いと思う。
-  int moji_cnt=1;
+  //int cnt=1;で初期化してfor文を開始することと cnt++;の処理位置が、文字数カウントのためによくできている。
+//↓  &vecは参照渡し
+
+void rle(string s, vector<pair<char, int>> &vec){
+  int cnt=1;
   //s.size()はintegerのため、intに変換する。
   for(int i =1; i < (int)s.size(); i++){
-
     if(s[i] != s[i-1]){
-      vec.push_back({s[i-i], moji_cnt})
-      moji_cnt = 0;
+      //s[i-1]をs[i-i]とtypoして詰まった。
+      //変数をよりカラフルにするプラグインを入れる。
+      vec.push_back({s[i-1], cnt});
+      cnt = 0;
     }
-    moji_cnt++;
+    cnt++;
   }
-  vec.push_back({s.back(), moji_cnt});
+  vec.push_back({s.back(), cnt});
 }
 
-int main() {
+
+int main(void) {
   //入力
   string s, t;  
   cin >> s >> t;
@@ -33,19 +35,19 @@ int main() {
   rle(s, svec), rle(t, tvec);
   if(svec.size() != tvec.size()){
     cout << "No" << endl;
+    //returnしないと続きの処理で "No"が出力される。
     return 0;
   }
 
   bool ans = true;
     for(int i = 0; i < (int)svec.size(); i++){
     if(svec[i].first != tvec[i].first) ans = false;
-    if(!(svec[i].second == tvec[i].second ||
-          (svec[i].second < tvec[i].second && svec[i].second >= 2))) ans = false;
-  }
+    if(!(svec[i].second == tvec[i].second || (svec[i].second < tvec[i].second && svec[i].second >= 2))) ans = false;
+    }
   if(ans){
     cout << "Yes" << endl;
   }else{
     cout << "No" << endl;
   }
-
+  return 0;
 }
