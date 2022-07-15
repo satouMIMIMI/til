@@ -1,0 +1,23 @@
+//Binary_search：二分探索
+ //AtCoder：典型アルゴリズム問題集
+#include <bits/stdc++.h>
+using namespace std;
+int main(void) {
+    // 入力
+    long long N, K;
+    cin >> N >> K;
+    vector<long long> A(N);//数列
+    for (int i = 0; i < N; ++i) cin >> A[i];
+
+    //数列の最大値A[N-1]>=Kであるか判定する
+    if(!(A[N-1]>=K)) return -1;
+
+    //二分探索
+    long long left =-1,right= N;
+    while (right -left >1){
+        long long mid =left + (right-left)/2;
+        if(A[mid] >= K) right = mid;
+        else left = mid;
+    }
+    cout << right;
+}
