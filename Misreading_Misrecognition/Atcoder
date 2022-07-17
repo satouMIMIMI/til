@@ -18,3 +18,13 @@ C++言語仕様（Language specifications）
 	for(int &x:AA){
       cin >> x;
 	}
+
+　coutは/nかendlしないとフラッシュされない。
+ これを実行しても、999は出力されない。
+int main(void) {
+	 cout << 999 ;
+         return 0;
+        }
+}
+
+問題を解いた経験が足りておらず、無駄に難しく、エッジケースを気にして手が止まる。
