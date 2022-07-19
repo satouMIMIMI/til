@@ -1,2 +1,80 @@
 //受験者数が1000人なので、合格者の判定回数も最大1000回。
 //計算量は（合格者の判定回数　* 受験者数）で　O(N^2)
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+int main() {
+  int n, x, y, z;
+  cin >>n >> x >> y >> z;
+  vector<bool> GG(n, false);//合格者
+  vector<int> aa(n), bb(n); //数学と英語の得点
+  int xx; //cin受取用
+  for (int i = 0; i < n; ++i) {
+      cin >> xx;  
+      aa[i] = xx;
+  }
+  for (int i = 0; i < n; ++i) {
+      cin >> xx;  
+      bb[i] = xx;
+  }
+
+
+  for (int t = 0; t < x; ++t){
+    int best = -1;//合格者の判定で、一番高得点(合格者)の受験者番号を保持する。
+    for (int i = 0; i < n; ++i) {
+      if(!GG[i]){
+        if((best == -1) || aa[i] > aa[best]){ //同じ得点なら、受験番号の若い方を合格にする。
+          best = i;
+        }
+      } 
+    }
+    GG[best] = true;
+  }
+
+
+  for (int t = 0; t < y; ++t){
+    int best = -1;//合格者の判定で、一番高得点(合格者)の受験者番号を保持する。
+    for (int i = 0; i < n; ++i) {
+      if(!GG[i]){
+        if((best == -1) || bb[i] > bb[best]){ //同じ得点なら、受験番号の若い方を合格にする。
+          best = i;
+        }
+      } 
+    }
+    GG[best] = true;
+  }
+
+
+  for (int t = 0; t < z; ++t){
+   int best = -1;//合格者の判定で、一番高得点(合格者)の受験者番号を保持する。
+    for (int i = 0; i < n; ++i) {
+      if(!GG[i]){
+        if((best == -1) || (aa[best] + bb[best] < aa[i] + bb[i])){ //同じ得点なら、受験番号の若い方を合格にする。
+          best = i;
+        }
+      } 
+    }
+    GG[best] = true;
+  }
+
+  for (int i = 0; i < n; ++i) {
+      if(GG[i]) {cout << i+1 << endl;}
+  }
+
+
+
+// vector<vector<type> > myVec(n, vector<type>(4, 0));
+   
+//    //受験者番号
+//   for (int i = 0; i < n; ++i) myVec[i][0] =i;
+//   //数学
+//   for (int i = 0; i < n; ++i) int xx; cin >> xx; myVec[i][1] = xx;
+//   //英語
+//   for (int i = 0; i < n; ++i) int xx; cin >> xx; myVec[i][2] = xx;
+//   //合計
+//   vector<bool> GG(n, false);//合格者
+//   sort(myVec.begin(),myVec.end(),[](const vector<int> &alpha,const vector<int> &beta){return alpha[1] < beta[1];});
+//   for(int i = n-1; i > n-1-x ; i--){
+//     GG.push_back(myVec[i][0]);
+//   }
+}
