@@ -1,0 +1,34 @@
+//バケットソートを使う場合
+//参考文献
+//https://atcoder.jp/contests/abc260/editorial/4443
+
+//連想配列 map<char,int> (文字 (char 型) を添え字にとって int 型の配列のように扱えるデータ構造の場合。
+//バケットソートの例。
+//標準入力　：　abcbz　で動かすと、 i = d などのkeyが存在しない場合はintの初期値0が返されることが分かる。
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+  string s;
+  cin >> s;
+  map<char,int> mp;
+  for(auto &nx : s) {mp[nx]++;}
+  for(char i='a';i<='z';i++){
+    cout << i << " : " << mp[i] << "\n";
+  }
+  return 0;
+}
+
+//これを応用して問題を解く
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+  string s;
+  cin >> s;
+  map<char,int> mp;
+  for(auto &nx : s) {mp[nx]++;}
+  for(char i='a';i<='z';i++){
+    if(mp[i]==1){cout << i << "\n";return 0;}
+  }
+  cout << "-1\n";
+  return 0;
+}
