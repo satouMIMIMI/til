@@ -8,16 +8,57 @@ int main(void) {
     cin >> N >> K;
     vector<long long> A(N);//数列
     for (int i = 0; i < N; ++i) cin >> A[i];
-
-    //数列の最大値A[N-1]>=Kであるか判定する
-    if(!(A[N-1]>=K)) return -1;
-
+    
     //二分探索
+    //K以上の最小を求める場合
     long long left =-1,right= N;
     while (right -left >1){
         long long mid =left + (right-left)/2;
         if(A[mid] >= K) right = mid;
         else left = mid;
     }
+    if(! right < K){
+    cout << -1;
+    return 0;
+    } 
     cout << right;
 }
+
+//K以上の最小を求める2分探索のコーナーケース
+
+// ・条件を満たす値が無い場合（数列の値全て < Kの場合）
+// 探索範囲は右側のみが残っていき、whileの最後は次となる。
+// left = N-3 || N-4, right = N 
+// -> mid = left + (right-left)/2 -> mid = N-2
+// if(A[mid] >= K) -> falseのため、 left = mid;
+//
+//
+// left = N-2 , right = N 
+// -> mid = left + (right-left)/2 -> mid = N-1
+// if(A[mid] >= K) -> falseのため、 left = mid;
+// while文終了後にright = Nとなるため、if(! right < K)の場合で-1を出力する
+
+// ・配列の要素数N = 1の場合で条件を満たさない場合。
+// 1度だけwhile文が実行されて次の状況で行う。
+// left = -1, right = 1 
+// -> mid = left + (right-left)/2 -> mid = 0
+// if(A[mid] >= K) 
+//     right = mid
+// else left = mid// right = 1, left = 0
+// while文終了後にright = Nとなるため、if(! right < K)の場合で-1を出力する
+
+
+// ・全ての値が条件を満たす場合（数列の値全て >= Kの場合）
+// 探索範囲は左側のみが残っていき、whileの最後の実行は次の状況で行う。
+// left = -1, right = 1 || 2
+// -> mid = left + (right-left)/2 -> mid = 0
+// if(A[mid] >= K) -> trueのため、 right = mid;
+// while文終了後にright = 0となるため、rightを出力すれば良い。
+
+// ・配列の要素数N = 1の場合で条件を満たす場合
+// 1度だけwhile文が実行されて次の状況で行う。
+// left = -1, right = 1 
+// -> mid = left + (right-left)/2 -> mid = 0
+// if(A[mid] >= K) -> trueの場合
+//     right = mid;//right = 0, left = -1
+// while文終了後にright = 0となるため、rightを出力すれば良い。
