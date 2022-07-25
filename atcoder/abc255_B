@@ -1,0 +1,32 @@
+//反省。明かりを持つ人に対して、明かりを持たない人を総当たりすることを考えていた。
+//答えの条件から明かりを持たない人に対して、明かりを持つ人を総当たりするべきだった。
+//N=5でK=2のケースを考えると思いつけたかもしれない。
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+  int n,k;
+  cin >> n >> k;
+  vector<int> a(k);
+  for(auto &&nx : a){
+    cin >> nx;
+    nx--;//配列を参照するために、デクリメントしている。（K人の番号と配列の添字（０始まり）はずれているから）
+  }
+  vector<long long> x(n),y(n);
+  // for(int i=0;i<n;i++){cin >> x[i] >> y[i];}
+     for(int i=0;i<n;i++){
+      // cin >> x[i] >> y[i];
+      scanf("%lld %lld", &x[i], &y[i]);
+      getchar();
+      }
+
+  long long res=0;
+  for(int i=0;i<n;i++){
+    long long cres=8e18;//なるべく大きい値で初期化している。(（人の距離）^2の最大値は8 * 10^10程度)
+    for(auto &nx : a){//N人中i番目の人からみた、明かりを持つ人との最小距離を求める。
+      cres=min(cres,(x[i]-x[nx])*(x[i]-x[nx]) + (y[i]-y[nx])*(y[i]-y[nx]));
+    }
+    res=max(res,cres);//i番目と過去の人で「明かりを持つ人との最小距離」が長い方を求める。
+  }
+  printf("%.12lf\n",sqrt((double)res));
+  return 0;
+}
