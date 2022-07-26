@@ -37,6 +37,5 @@ int main(void) {
     vector<long long> A(N);//数列
     for (int i = 0; i < N; ++i) cin >> A[i]; 
     mergeSort(A, 0, N-1);
-    
-  
 }
+
