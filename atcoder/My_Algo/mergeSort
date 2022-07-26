@@ -1,0 +1,37 @@
+//マージソート
+//ポイント：
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+void mergeSort(vector<ll>& a, int l, int r){
+  if(!(l < r)) return;
+  //要素数N=1の場合は即リターンする。
+  
+  int m = l + (r-l)/2;
+  printf("mergeSort(%d, %d) 　",l, r);
+  printf("mergeSort(%d, %d)　mergeSort(%d, %d)\n",l,m,m+1,r);
+  mergeSort(a, l, m);
+  mergeSort(a, m+1, r);
+  //merge
+  
+  //２回目のmergeSortでm+1としているのがポイント！！
+  //左の分割はlからm、右の分割はm＋１からrとピッタリ被らないで切り分けるけ続けると、
+  //mergeSort(0, 1) 　mergeSort(0, 0)　mergeSort(1, 1)で初めてreturnする。そして、0と1をマージする。
+  //次にmergeSort(0, 2) 　mergeSort(0, 1)　mergeSort(2, 2)の処理に移動し、mergeSort(2, 2)は即returnする。(0, 1)（ソート済み）と　(2, 2)をマージする。
+  //処理の順番は、左に分割していき、分割対象(0, 1)を分割すると初めてreturnして、(0, 1)をマージする。
+  //そしたら左(0, 1)のmergeSort実行箇所に戻り、続きの右側mergeSortをする。
+  //続きの右側mergeSortが終わったら、左と右のmergeをする。
+
+}
+    
+int main(void) {
+     // 入力
+    long long N;
+    cin >> N;
+    vector<long long> A(N);//数列
+    for (int i = 0; i < N; ++i) cin >> A[i]; 
+    mergeSort(A, 0, N-1);
+    
+  
+}
