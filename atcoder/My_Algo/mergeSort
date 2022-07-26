@@ -18,7 +18,7 @@ void mergeSort(vector<ll>& a, int l, int r){
   //２回目のmergeSortでm+1としているのがポイント！！
   //左の分割はlからm、右の分割はm＋１からrとピッタリ被らないで切り分けるけ続けると、
   //mergeSort(0, 1) 　mergeSort(0, 0)　mergeSort(1, 1)で初めてreturnする。そして、0と1をマージする。
-  //次にmergeSort(0, 2) 　mergeSort(0, 1)　mergeSort(2, 2)の処理に移動し、mergeSort(2, 2)は即returnする。(0, 1)（ソート済み）と　(2, 2)をマージする。
+  //次にmergeSort(0, 1)の実行箇所に戻り、mergeSort(2, 2)は実行して即returnする。そして、(0, 1)（ソート済み）と　(2, 2)をマージする。
   //処理の順番は、左に分割していき、分割対象(0, 1)を分割すると初めてreturnして、(0, 1)をマージする。
   //そしたら左(0, 1)のmergeSort実行箇所に戻り、続きの右側mergeSortをする。
   //続きの右側mergeSortが終わったら、左と右のmergeをする。
