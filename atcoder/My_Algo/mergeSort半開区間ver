@@ -1,1 +1,33 @@
+//マージソート
+//このmergeSorは半開区間のマージソート。こっちはなんか苦手。
+//左右に分割してmergeSortをする際に、左側の区間は(l,m)で右側の区間を(m+1,r)で区間を被らずに分割していくと、最終的に(0,1),(2,3),(4,5),(6,7)・・・・に分割される。
+//ーーー>これに合わせて再帰の終了条件とmergeの処理を書く。
+//左右に分割してmergeSortをする際に、左側の区間は(l,m)で右側の区間を(m,r)で分割するとmが被っているため、最終的に(0,1),(1,2),(2,3),(3,4)・・・・に分割される。
+//ーーー＞２つ目の数字が重複していてmergeができない。
+/ーーーー＞/そのため、(0,2),(2,3),(3,5),()・・・・・に分割したタイミングで半開区間[0,2)->0,1, [2,3)->2, [3,5) -> 3,4　にmergeするように再起の終了条件とmergeの処理を書く。
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
 
+void mergeSort(vector<ll>& a, int l, int r){
+  if(r - l == 1) return;
+  //要素数N=1の場合は即リターンする。
+  
+  int m = l + (r-l)/2;
+  printf("mergeSort(%d, %d) 　",l, r);
+  printf("mergeSort(%d, %d)　mergeSort(%d, %d)\n",l,m,m,r);
+  mergeSort(a, l, m);
+  mergeSort(a, m, r);
+  //merge
+  
+
+}
+    
+int main(void) {
+     // 入力
+    long long N;
+    cin >> N;
+    vector<long long> A(N);//数列
+    for (int i = 0; i < N; ++i) cin >> A[i]; 
+    mergeSort(A, 0, N);
+}
