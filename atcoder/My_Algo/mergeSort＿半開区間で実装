@@ -2,9 +2,6 @@
 //このmergeSorは半開区間のマージソート。こっちはなんか苦手。
 //左右に分割してmergeSortをする際に、左側の区間は(l,m)で右側の区間を(m+1,r)で区間を被らずに分割していくと、最終的に(0,1),(2,3),(4,5),(6,7)・・・・に分割される。
 //ーーー>これに合わせて再帰の終了条件とmergeの処理を書く。
-//左右に分割してmergeSortをする際に、左側の区間は(l,m)で右側の区間を(m,r)で分割するとmが被っているため、最終的に(0,1),(1,2),(2,3),(3,4)・・・・に分割される。
-//ーーー＞２つ目の数字が重複していてmergeができない。
-/ーーーー＞/そのため、(0,2),(2,3),(3,5),()・・・・・に分割したタイミングで半開区間[0,2)->0,1, [2,3)->2, [3,5) -> 3,4　にmergeするように再起の終了条件とmergeの処理を書く。
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
@@ -14,15 +11,53 @@ void mergeSort(vector<ll>& a, int l, int r){
   //要素数N=1の場合は即リターンする。
   
   int m = l + (r-l)/2;
-  printf("mergeSort(%d, %d) 　",l, r);
-  printf("mergeSort(%d, %d)　mergeSort(%d, %d)\n",l,m,m,r);
+
   mergeSort(a, l, m);
   mergeSort(a, m, r);
-  //merge
+  merge()
+}
+
+void merge(vector<ll>& a, int l,int m,int r){
+  int n_L = m-l+1;
+  int n_R = r-m; 
+  
+  int L[n_L]; // array[l..m]
+  int R[n_R]; // array[m+1..r]
+  
+  for(int i = 0; i < n_L; i++) L[i] = a[l + i];
+  for(int i = 0; j < n_R; i++) R[i] = a[m+1+i]; 
+      // merge the two arrays
+    i = 0;    // index of L
+    j = 0;    // index of R
+    k = l;    // index of merged array
+   
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            a[k] = L[i];
+            i++;
+        } else {
+            a[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+     
+    while (i < n1) {
+        a[k] = L[i];
+        i++;
+        k++;
+    }
+    
+    while (j < n2) {
+        a[k] = R[j];
+        j++;
+        k++;
+    }
+  
+  
   
 
-}
-    
+}    
 int main(void) {
      // 入力
     long long N;
@@ -30,6 +65,7 @@ int main(void) {
     vector<long long> A(N);//数列
     for (int i = 0; i < N; ++i) cin >> A[i]; 
     mergeSort(A, 0, N);
+    for (auto&& x; A) printf("%lld ", x); 
 }
 /* 
 mergeSortの入力例
