@@ -1,0 +1,69 @@
+//マージソート
+//このmergeSorは半開区間のマージソート。こっちはなんか苦手。
+//左右に分割してmergeSortをする際に、左側の区間は(l,m)で右側の区間を(m+1,r)で区間を被らずに分割していくと、最終的に(0,1),(2,3),(4,5),(6,7)・・・・に分割される。
+//ーーー>これに合わせて再帰の終了条件とmergeの処理を書く。
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+void merge(vector<ll>& a, int l,int m,int r){
+  int n_L = m-l+1;
+  int n_R = r-m; 
+  
+  int L[n_L]; // array[l..m]
+  int R[n_R]; // array[m+1..r]
+  
+  for(int i = 0; i < n_L; i++) L[i] = a[l + i];
+  for(int i = 0; i < n_R; i++) R[i] = a[m+1+i]; 
+      // merge the two arrays
+    int i = 0;    // index of L
+    int j = 0;    // index of R
+    int k = l;    // index of merged array
+   
+    while (i < n_L && j < n_R) {
+        if (L[i] <= R[j]) {
+            a[k] = L[i];
+            i++;
+        } else {
+            a[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+     
+    while (i < n_L) {
+        a[k] = L[i];
+        i++;
+        k++;
+    }
+    
+    while (j < n_R) {
+        a[k] = R[j];
+        j++;
+        k++;
+    }
+}  
+void mergeSort(vector<ll>& a, int l, int r){
+  if(!(l < r)) return;
+  //要素数N=1の場合は即リターンする。
+  
+  int m = l + (r-l)/2;
+  mergeSort(a, l, m);
+  mergeSort(a, m+1, r);
+  merge(a, l, m, r);
+}
+
+  
+int main(void) {
+     // 入力
+    long long N;
+    cin >> N;
+    vector<long long> A(N);//数列
+    for (int i = 0; i < N; ++i) cin >> A[i]; 
+    mergeSort(A, 0, N-1);
+    for (auto&& x : A) printf("%lld ", x); 
+}
+/* 
+mergeSortの入力例
+10
+658 299 47 507 122 969 449 68 513 800
+*/
