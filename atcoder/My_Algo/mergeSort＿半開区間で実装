@@ -14,50 +14,10 @@ void mergeSort(vector<ll>& a, int l, int r){
 
   mergeSort(a, l, m);
   mergeSort(a, m, r);
-  merge()
+  //merge()
 }
 
-void merge(vector<ll>& a, int l,int m,int r){
-  int n_L = m-l+1;
-  int n_R = r-m; 
-  
-  int L[n_L]; // array[l..m]
-  int R[n_R]; // array[m+1..r]
-  
-  for(int i = 0; i < n_L; i++) L[i] = a[l + i];
-  for(int i = 0; j < n_R; i++) R[i] = a[m+1+i]; 
-      // merge the two arrays
-    i = 0;    // index of L
-    j = 0;    // index of R
-    k = l;    // index of merged array
-   
-    while (i < n1 && j < n2) {
-        if (L[i] <= R[j]) {
-            a[k] = L[i];
-            i++;
-        } else {
-            a[k] = R[j];
-            j++;
-        }
-        k++;
-    }
-     
-    while (i < n1) {
-        a[k] = L[i];
-        i++;
-        k++;
-    }
-    
-    while (j < n2) {
-        a[k] = R[j];
-        j++;
-        k++;
-    }
-  
-  
-  
 
-}    
 int main(void) {
      // 入力
     long long N;
